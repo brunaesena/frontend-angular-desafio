@@ -1,0 +1,27 @@
+<table class="task-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Título</th>
+      <th>Descrição</th>
+      <th>Status</th>
+      <th>Data Limite</th>
+      <th>Usuário</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.id }}</td>
+      <td>{{ task.title }}</td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.status }}</td>
+      <td>{{ task.dueDate | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ getUserName(task.userId) }}</td>
+      <td class="actions">
+        <button (click)="onEdit(task)">✏️</button>
+        <button (click)="onDelete(task.id)">🗑️</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

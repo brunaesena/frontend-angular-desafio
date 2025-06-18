@@ -1,0 +1,23 @@
+<table class="user-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Data de Criação</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.createdAt | date: 'dd/MM/yyyy' }}</td>
+      <td class="actions">
+        <button (click)="onEdit(user)">✏️</button>
+        <button (click)="onDelete(user.id)">🗑️</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

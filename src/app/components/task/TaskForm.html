@@ -1,0 +1,47 @@
+<div class="modal-backdrop">
+  <div class="modal">
+    <h3>{{ isEdit ? 'Editar Tarefa' : 'Criar Tarefa' }}</h3>
+
+    <form [formGroup]="taskForm" (ngSubmit)="submit()">
+      <label>
+        Título:
+        <input formControlName="title" />
+        <small *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+          Título obrigatório.
+        </small>
+      </label>
+
+      <label>
+        Descrição:
+        <textarea formControlName="description"></textarea>
+      </label>
+
+      <label>
+        Data Limite:
+        <input type="date" formControlName="dueDate" />
+      </label>
+
+      <label *ngIf="isEdit">
+        Status:
+        <select formControlName="status">
+          <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+        </select>
+      </label>
+
+      <label>
+        Usuário responsável:
+        <select formControlName="userId">
+          <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+        </select>
+        <small *ngIf="taskForm.get('userId')?.invalid && taskForm.get('userId')?.touched">
+          Usuário obrigatório.
+        </small>
+      </label>
+
+      <div class="actions">
+        <button type="button" (click)="cancel()">Cancelar</button>
+        <button type="submit" [disabled]="taskForm.invalid">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>

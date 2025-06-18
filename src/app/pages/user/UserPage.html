@@ -1,0 +1,26 @@
+<div class="user-page">
+  <h2>Gerenciar usuários</h2>
+
+  <div class="top-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Buscar usuário por nome ou email"
+    />
+    <button (click)="openCreateModal()">Criar novo</button>
+  </div>
+
+  <app-user-list
+    [users]="filteredUsers"
+    (edit)="openEditModal($event)"
+    (delete)="deleteUser($event)"
+  ></app-user-list>
+
+  <app-user-form
+    *ngIf="isModalOpen"
+    [user]="selectedUser"
+    [isEdit]="isEditMode"
+    (close)="closeModal()"
+    (saved)="onUserSaved()"
+  ></app-user-form>
+</div>
