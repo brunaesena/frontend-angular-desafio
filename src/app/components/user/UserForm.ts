@@ -2,13 +2,15 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './UserForm.html',
-  styleUrls: ['./UserForm.scss']
+  styleUrls: ['./UserForm.scss'],
+  imports: [ReactiveFormsModule]
 })
-export class UserFormComponent implements OnInit {
+export class UserForm implements OnInit {
   @Input() user: User | null = null;
   @Input() isEdit: boolean = false;
   @Output() close = new EventEmitter<void>();

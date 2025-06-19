@@ -5,35 +5,35 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { UserPage } from './pages/user/UserPage';
-import { UserListComponent } from './components/user/UserList';
-import { UserFormComponent } from './components/user/UserForm';
+import { UserList } from './components/user/UserList';
+import { UserForm } from './components/user/UserForm';
 
 import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './pages/home/HomePage';
 import {appRoutes} from './app.routes'
 import { TaskPage } from './pages/task/TaskPage';
-import { TaskListComponent } from './components/task/TaskList';
-import { TaskFormComponent } from './components/task/TaskForm';
+import { TaskList } from './components/task/TaskList';
+import { TaskForm } from './components/task/TaskForm';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UserPage,
-    UserListComponent,
-    UserFormComponent,
-    HomePage,
-    TaskPage,
-    TaskListComponent,
-    TaskFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AppComponent,
+     UserPage,
+    UserList,
+    UserForm,
+    HomePage,
+    TaskPage,
+    TaskList,
+    TaskForm
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
 export class AppModule {}

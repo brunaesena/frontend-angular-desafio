@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core'; // Adicione OnInit aqui
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/User';
+import { UserList} from "../../components/user/UserList";
+import { UserForm} from "../../components/user/UserForm";
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-user-page',
   templateUrl: './UserPage.html',
-  styleUrls: ['./UserPage.scss']
+  styleUrls: ['./UserPage.scss'],
+  imports: [UserList, UserForm, FormsModule]
 })
 export class UserPage implements OnInit { 
   users: User[] = [];
@@ -21,9 +26,11 @@ export class UserPage implements OnInit {
   }
 
   loadUsers() {
+    console.log('tentanod carregar users')
     this.userService.getAll().subscribe(users => {
       this.users = users;
     });
+    console.log(this.users)
   }
 
   openCreateModal() {

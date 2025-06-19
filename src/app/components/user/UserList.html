@@ -16,7 +16,7 @@
       <td>{{ user.createdAt | date: 'dd/MM/yyyy' }}</td>
       <td class="actions">
         <button (click)="onEdit(user)">✏️</button>
-        <button (click)="onDelete(user.id)">🗑️</button>
+        <button (click)="onDelete(user.id ?? 0)">🗑️</button>
       </td>
     </tr>
   </tbody>

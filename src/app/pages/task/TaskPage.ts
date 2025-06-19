@@ -4,11 +4,15 @@ import { TaskService } from 'src/app/services/task.service';
 import { TaskStatus } from 'src/app/models/TaskStatus';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/User';
+import { TaskList } from 'src/app/components/task/TaskList';
+import { TaskForm } from 'src/app/components/task/TaskForm';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-page',
   templateUrl: './TaskPage.html',
-  styleUrls: ['./TaskPage.scss']
+  styleUrls: ['./TaskPage.scss'],
+  imports: [TaskList, TaskForm, FormsModule]
 })
 export class TaskPage implements OnInit {
   tasks: Task[] = [];

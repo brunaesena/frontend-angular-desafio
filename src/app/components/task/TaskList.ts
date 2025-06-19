@@ -1,13 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Task } from 'src/app/models/Task';
 import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './TaskList.html',
-  styleUrls: ['./TaskList.scss']
+  styleUrls: ['./TaskList.scss'],
+  imports: [CommonModule]
 })
-export class TaskListComponent {
+export class TaskList {
   @Input() tasks: Task[] = [];
   @Input() users: User[] = [];
   @Output() edit = new EventEmitter<Task>();

@@ -20,7 +20,7 @@
       <td>{{ getUserName(task.userId) }}</td>
       <td class="actions">
         <button (click)="onEdit(task)">✏️</button>
-        <button (click)="onDelete(task.id)">🗑️</button>
+        <button (click)="onDelete(task.id ?? 0)">🗑️</button>
       </td>
     </tr>
   </tbody>

@@ -4,13 +4,15 @@ import { Task } from 'src/app/models/Task';
 import { TaskStatus } from 'src/app/models/TaskStatus';
 import { TaskService } from 'src/app/services/task.service';
 import { User } from 'src/app/models/User';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-form',
   templateUrl: './TaskForm.html',
-  styleUrls: ['./TaskForm.scss']
+  styleUrls: ['./TaskForm.scss'],
+  imports: [ReactiveFormsModule]
 })
-export class TaskFormComponent implements OnInit {
+export class TaskForm implements OnInit {
   @Input() task: Task | null = null;
   @Input() isEdit = false;
   @Input() users: User[] = [];
