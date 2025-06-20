@@ -15,8 +15,8 @@
       <td>{{ user.email }}</td>
       <td>{{ user.createdAt | date: 'dd/MM/yyyy' }}</td>
       <td class="actions">
-        <button (click)="onEdit(user)">✏️</button>
-        <button (click)="onDelete(user.id ?? 0)">🗑️</button>
+        <button data-testid="edit-user" (click)="onEdit(user)">✏️</button>
+        <button data-testid="delete-user" (click)="onDelete(user.id ?? 0)">🗑️</button>
       </td>
     </tr>
   </tbody>

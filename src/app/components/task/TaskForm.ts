@@ -16,38 +16,41 @@ import { CommonModule } from '@angular/common';
   imports: [ReactiveFormsModule, FormsModule, CommonModule],
 })
 export class TaskForm implements OnInit, OnChanges {
-applyFilters() {
-throw new Error('Method not implemented.');
-}
   @Input() task: Task | null = null;
   @Input() isEdit = false;
   @Input() users: User[] = [];
 
   @Output() close = new EventEmitter<void>();
   @Output() saved = new EventEmitter<void>();
+  @Output() cancelAction = new EventEmitter<void>();
 
   taskForm!: FormGroup;
 
   statuses: TaskStatus[] = ['PENDING', 'IN_PROGRESS', 'COMPLETED'];
-filterUserId: any;
+  filterUserId: any;
 
   constructor(private fb: FormBuilder, private taskService: TaskService, private cdr: ChangeDetectorRef) { }
+
+  feedbackMessage: string = '';
 
   ngOnInit(): void {
     this.taskForm = this.fb.group({
       title: [this.task?.title || '', Validators.required],
-      description: [this.task?.description || ''],
-      dueDate: [this.task?.dueDate || ''],
+      description: [this.task?.description || '', Validators.required],
+      dueDate: [this.task?.dueDate || null],
       status: [this.task?.status || 'PENDING'],
       userId: [this.task?.userId || '', Validators.required]
-      
     });
-    console.log(this.users)
+
+    if (this.isEdit && this.task?.status === 'COMPLETED') {
+      this.feedbackMessage = 'Não é possível editar tarefas concluídas.';
+      this.taskForm.disable();
+    }
   }
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['users'] && this.taskForm) {
-      console.log('Usuários atualizados:', this.users);
       this.cdr.detectChanges();
     }
   }
@@ -58,9 +61,33 @@ filterUserId: any;
     const data = this.taskForm.value;
 
     if (this.isEdit && this.task?.id) {
-      this.taskService.update(this.task.id, data).subscribe(() => this.saved.emit());
+      console.log('foi no edit')
+      this.taskService.update(this.task.id, data).subscribe({
+        next: () => {
+          this.feedbackMessage = 'Tarefa atualizada com sucesso.';
+          this.saved.emit();
+          setTimeout(() => this.feedbackMessage = '', 3000);
+        },
+        error: (err) => {
+          const customMessage = err?.error?.errorMessage || 'Erro ao atualizar tarefa.';
+          this.feedbackMessage = customMessage;
+          setTimeout(() => this.feedbackMessage = '', 3000);
+        }
+      });
     } else {
-      this.taskService.create(data).subscribe(() => this.saved.emit());
+      console.log('foi no create')
+      this.taskService.create(data).subscribe({
+        next: () => {
+          this.feedbackMessage = 'Tarefa criada com sucesso.';
+          this.saved.emit();
+          setTimeout(() => this.feedbackMessage = '', 3000);
+        },
+        error: (err) => {
+          const customMessage = err?.error?.errorMessage || 'Erro ao criar tarefa.';
+          this.feedbackMessage = customMessage;
+          setTimeout(() => this.feedbackMessage = '', 3000);
+        }
+      });
     }
   }
 

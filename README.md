@@ -76,6 +76,7 @@ ng serve
 
 ## 📌 Notas Finais
 
+- **Testes:** A máquina precisa ter o Google Chrome instalado para rodar os testes unitários com Angular (Jasmine + Karma).
 - O frontend foi projetado com arquitetura **smart/dumb components**
 - Ao utilizar o Docker Compose da pasta `infra`, nenhuma configuração adicional é necessária.
 

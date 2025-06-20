@@ -2,6 +2,10 @@
   <div class="modal">
     <h3>{{ isEdit ? 'Editar usuário' : 'Criar novo usuário' }}</h3>
 
+    <div class="feedback-message" *ngIf="feedbackMessage">
+      {{ feedbackMessage }}
+    </div>
+
     <form [formGroup]="userForm" (ngSubmit)="submit()">
       <label>
         Nome:
@@ -21,7 +25,9 @@
 
       <div class="actions">
         <button type="button" (click)="cancel()">Cancelar</button>
-        <button type="submit" [disabled]="userForm.invalid">Salvar</button>
+        <button type="submit" [disabled]="userForm.invalid || feedbackMessage">
+          Salvar
+        </button>
       </div>
     </form>
   </div>

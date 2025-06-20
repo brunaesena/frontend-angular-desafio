@@ -9,6 +9,8 @@ import { TaskForm } from 'src/app/components/task/TaskForm';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BackButtonComponent } from 'src/app/components/shared/back-button.component';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-task-page',
@@ -28,7 +30,7 @@ export class TaskPage implements OnInit {
   filterUserId: number | null = null;
   filterStatus: TaskStatus | '' = '';
 
-  constructor(private taskService: TaskService, private userService: UserService) { }
+  constructor(private taskService: TaskService, private userService: UserService, private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.loadTasks();
@@ -121,6 +123,24 @@ export class TaskPage implements OnInit {
       COMPLETED: 'Concluído'
     };
     return labels[status] || status;
+  }
+
+  onSaved() {
+    this.isModalOpen = false;
+    this.loadTasks();
+
+    if (this.isEditMode) {
+      this.feedbackMessage = 'Tarefa atualizada com sucesso.';
+    } else {
+      this.feedbackMessage = 'Tarefa criada com sucesso.';
+    }
+
+    this.cdRef.detectChanges();
+
+    setTimeout(() => {
+      this.feedbackMessage = '';
+      this.cdRef.detectChanges(); 
+    }, 3000);
   }
 
 }

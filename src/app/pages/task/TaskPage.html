@@ -3,12 +3,12 @@
   <h2>Gerenciar Tarefas</h2>
 
   <div class="filters">
-    <select [(ngModel)]="filterUserId" (change)="applyFilters()">
+    <select data-testid="filter-user" [(ngModel)]="filterUserId" (change)="applyFilters()">
       <option value="">Todos os usuários</option>
       <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
     </select>
 
-    <select [(ngModel)]="filterStatus" (change)="applyFilters()">
+    <select data-testid="filter-status" [(ngModel)]="filterStatus" (change)="applyFilters()">
       <option value="">Todos os status</option>
       <option *ngFor="let status of statuses" [value]="status">
         {{ getStatusLabel(status) }}
@@ -22,7 +22,7 @@
     (delete)="deleteTask($event)"></app-task-list>
 
   <app-task-form *ngIf="isModalOpen" [task]="selectedTask" [isEdit]="isEditMode" [users]="users" (close)="closeModal()"
-    (saved)="onTaskSaved()"></app-task-form>
+    (saved)="onSaved()"></app-task-form>
 
   <div class="modal-backdrop" *ngIf="isConfirmDeleteOpen">
     <div class="modal">

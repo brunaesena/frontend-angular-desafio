@@ -19,8 +19,8 @@
       <td>{{ task.dueDate ? (task.dueDate | date: 'dd/MM/yyyy') : 'Sem data limite' }}</td>
       <td>{{ getUserName(task.userId) }}</td>
       <td class="actions">
-        <button (click)="onEdit(task)">✏️</button>
-        <button (click)="onDelete(task.id ?? 0)">🗑️</button>
+        <button data-testid="edit-task" (click)="onEdit(task)">✏️</button>
+        <button data-testid="delete-task" (click)="onDelete(task.id ?? 0)">🗑️</button>
       </td>
     </tr>
   </tbody>
