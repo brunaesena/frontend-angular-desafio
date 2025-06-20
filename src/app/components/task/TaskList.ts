@@ -15,6 +15,7 @@ export class TaskList {
   @Output() edit = new EventEmitter<Task>();
   @Output() delete = new EventEmitter<number>();
 
+
   getUserName(userId: number): string {
     const user = this.users.find(u => u.id === userId);
     return user ? user.name : 'Desconhecido';
@@ -27,4 +28,13 @@ export class TaskList {
   onDelete(taskId: number) {
     this.delete.emit(taskId);
   }
+
+  getStatusLabel(status: string): string {
+  const labels: Record<string, string> = {
+    PENDING: 'Pendente',
+    IN_PROGRESS: 'Em Andamento',
+    COMPLETED: 'Concluído'
+  };
+  return labels[status] || status;
+}
 }

@@ -7,12 +7,14 @@ import { User } from 'src/app/models/User';
 import { TaskList } from 'src/app/components/task/TaskList';
 import { TaskForm } from 'src/app/components/task/TaskForm';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { BackButtonComponent } from 'src/app/components/shared/back-button.component';
 
 @Component({
   selector: 'app-task-page',
   templateUrl: './TaskPage.html',
   styleUrls: ['./TaskPage.scss'],
-  imports: [TaskList, TaskForm, FormsModule]
+  imports: [TaskList, TaskForm, FormsModule, CommonModule, BackButtonComponent]
 })
 export class TaskPage implements OnInit {
   tasks: Task[] = [];
@@ -26,7 +28,7 @@ export class TaskPage implements OnInit {
   filterUserId: number | null = null;
   filterStatus: TaskStatus | '' = '';
 
-  constructor(private taskService: TaskService, private userService: UserService) {}
+  constructor(private taskService: TaskService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.loadTasks();
@@ -75,11 +77,50 @@ export class TaskPage implements OnInit {
     this.loadTasks();
   }
 
-  deleteTask(id: number) {
-    if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
-      this.taskService.delete(id).subscribe(() => {
-        this.loadTasks();
-      });
-    }
+  deleteTaskId: number | null = null;
+  isConfirmDeleteOpen = false;
+  feedbackMessage = '';
+
+  deleteTask(taskId: number) {
+    this.deleteTaskId = taskId;
+    this.isConfirmDeleteOpen = true;
   }
+
+  confirmDelete() {
+    if (this.deleteTaskId === null) return;
+
+    this.taskService.delete(this.deleteTaskId).subscribe({
+      next: () => {
+        this.feedbackMessage = 'Tarefa deletada com sucesso.';
+        this.loadTasks();
+      },
+      error: (err) => {
+        const customMessage = err?.error?.errorMessage || 'Erro desconhecido.';
+        this.feedbackMessage = `Não foi possível deletar a tarefa: ${customMessage}`;
+        setTimeout(() => this.feedbackMessage = '', 3000);
+      },
+      complete: () => {
+        this.isConfirmDeleteOpen = false;
+        this.deleteTaskId = null;
+        setTimeout(() => (this.feedbackMessage = ''), 3000);
+      }
+    });
+  }
+
+  cancelDelete() {
+    this.isConfirmDeleteOpen = false;
+    this.deleteTaskId = null;
+  }
+
+  statuses = ['PENDING', 'IN_PROGRESS', 'COMPLETED'];
+
+  getStatusLabel(status: string): string {
+    const labels: Record<string, string> = {
+      PENDING: 'Pendente',
+      IN_PROGRESS: 'Em Andamento',
+      COMPLETED: 'Concluído'
+    };
+    return labels[status] || status;
+  }
+
 }

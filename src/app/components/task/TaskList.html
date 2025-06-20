@@ -15,8 +15,8 @@
       <td>{{ task.id }}</td>
       <td>{{ task.title }}</td>
       <td>{{ task.description }}</td>
-      <td>{{ task.status }}</td>
-      <td>{{ task.dueDate | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ getStatusLabel(task.status) }}</td>
+      <td>{{ task.dueDate ? (task.dueDate | date: 'dd/MM/yyyy') : 'Sem data limite' }}</td>
       <td>{{ getUserName(task.userId) }}</td>
       <td class="actions">
         <button (click)="onEdit(task)">✏️</button>

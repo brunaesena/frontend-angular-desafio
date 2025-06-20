@@ -1,4 +1,5 @@
 <div class="user-page">
+  <app-back-button />
   <h2>Gerenciar usuários</h2>
 
   <div class="top-bar">
@@ -23,4 +24,18 @@
     (close)="closeModal()"
     (saved)="onUserSaved()"
   ></app-user-form>
+
+  <div class="modal-backdrop" *ngIf="isConfirmDeleteOpen">
+    <div class="modal">
+      <h3>Tem certeza que deseja excluir este usuário?</h3>
+      <div class="actions">
+        <button (click)="confirmDelete()">Sim</button>
+        <button (click)="cancelDelete()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="feedback-message" *ngIf="feedbackMessage">
+    {{ feedbackMessage }}
+  </div>
 </div>

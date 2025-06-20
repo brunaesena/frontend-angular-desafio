@@ -1,4 +1,5 @@
 <div class="task-page">
+  <app-back-button />
   <h2>Gerenciar Tarefas</h2>
 
   <div class="filters">
@@ -9,27 +10,32 @@
 
     <select [(ngModel)]="filterStatus" (change)="applyFilters()">
       <option value="">Todos os status</option>
-      <option *ngFor="let status of ['PENDING', 'IN_PROGRESS', 'COMPLETED']">
-        {{ status }}
+      <option *ngFor="let status of statuses" [value]="status">
+        {{ getStatusLabel(status) }}
       </option>
     </select>
 
     <button (click)="openCreateModal()">Criar nova</button>
   </div>
 
-  <app-task-list
-    [tasks]="filteredTasks"
-    [users]="users"
-    (edit)="openEditModal($event)"
-    (delete)="deleteTask($event)"
-  ></app-task-list>
+  <app-task-list [tasks]="filteredTasks" [users]="users" (edit)="openEditModal($event)"
+    (delete)="deleteTask($event)"></app-task-list>
 
-  <app-task-form
-    *ngIf="isModalOpen"
-    [task]="selectedTask"
-    [isEdit]="isEditMode"
-    [users]="users"
-    (close)="closeModal()"
-    (saved)="onTaskSaved()"
-  ></app-task-form>
+  <app-task-form *ngIf="isModalOpen" [task]="selectedTask" [isEdit]="isEditMode" [users]="users" (close)="closeModal()"
+    (saved)="onTaskSaved()"></app-task-form>
+
+  <div class="modal-backdrop" *ngIf="isConfirmDeleteOpen">
+    <div class="modal">
+      <h3>Tem certeza que deseja excluir esta tarefa?</h3>
+      <div class="actions">
+        <button (click)="confirmDelete()">Sim</button>
+        <button (click)="cancelDelete()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="feedback-message" *ngIf="feedbackMessage">
+    {{ feedbackMessage }}
+  </div>
+
 </div>
