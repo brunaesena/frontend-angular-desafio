@@ -12,7 +12,7 @@ import { BackButtonComponent } from 'src/app/components/shared/back-button.compo
   selector: 'app-user-page',
   templateUrl: './UserPage.html',
   styleUrls: ['./UserPage.scss'],
-  imports: [UserList, UserForm, FormsModule, CommonModule,BackButtonComponent]
+  imports: [UserList, UserForm, FormsModule, CommonModule, BackButtonComponent]
 })
 export class UserPage implements OnInit {
   users: User[] = [];

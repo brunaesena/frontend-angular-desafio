@@ -4,7 +4,7 @@ FROM node:18-alpine as build
 WORKDIR /app
 COPY . .
 RUN npm install
-RUN npm run build --prod
+RUN npm run build -- --configuration=production
 
 # Etapa 2: servidor nginx para servir os arquivos
 FROM nginx:stable-alpine

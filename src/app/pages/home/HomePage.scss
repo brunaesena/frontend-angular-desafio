@@ -1,39 +1,56 @@
 .home-container {
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
+  align-items: center;
+  background: linear-gradient(135deg, #c2f4f4, #b0e0ff);
+  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
+}
+
+.welcome-card {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 40px;
+  border-radius: 16px;
   text-align: center;
-  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  width: 100%;
+  backdrop-filter: blur(6px);
+}
 
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 12px;
-  }
+.welcome-card h1 {
+  font-size: 2.2rem;
+  color: #084c61;
+  margin-bottom: 12px;
+}
 
-  p {
-    font-size: 1.1rem;
-    margin-bottom: 24px;
-  }
+.welcome-card p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: #333;
+}
 
-  .buttons {
-    display: flex;
-    gap: 20px;
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 
-    button {
-      padding: 12px 24px;
-      font-size: 16px;
-      border: none;
-      border-radius: 12px;
-      background-color: #1976d2;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
+.buttons button {
+  background-color: #00a3a3;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-      &:hover {
-        background-color: #115293;
-      }
-    }
-  }
+.buttons button:hover {
+  background-color: #007d7d;
 }
