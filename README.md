@@ -1,59 +1,82 @@
-# Frontend
+# Frontend Angular - Sistema de Tarefas e Usuários
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+Este repositório contém o frontend da aplicação desenvolvida no desafio técnico, utilizando **Angular** para o gerenciamento de usuários e tarefas em um ambiente com arquitetura de microserviços.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📁 Estrutura do Projeto
+
+Este projeto faz parte de uma estrutura maior, organizada da seguinte forma:
+
+```
+root/
+├── frontend-angular-desafio   # Este repositório
+├── infra                      # Infraestrutura Docker (banco de dados, containers)
+├── task-microservice          # Microsserviço de tarefas (Spring Boot)
+└── user-microservice          # Microsserviço de usuários (Spring Boot)
+```
+
+---
+
+## 🚀 Como rodar o frontend
+
+### ✅ Opção 1 — Docker com infraestrutura completa
+
+Ao subir a infraestrutura com Docker Compose, o frontend será iniciado automaticamente na porta `4200`.
 
 ```bash
+cd ../infra
+docker-compose up --build
+```
+
+Acesse no navegador:
+
+```
+http://localhost:4200
+```
+
+O frontend já estará se comunicando com os microsserviços de usuários (`8081`) e tarefas (`8082`).
+
+---
+
+### 🛠️ Opção 2 — Rodar localmente com Angular CLI
+
+Se preferir rodar o frontend manualmente com hot reload:
+
+```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+> Por padrão, a aplicação será iniciada em `http://localhost:4200`.
 
-## Code scaffolding
+**Atenção**: certifique-se de que os microsserviços `user` e `task` estejam rodando (via Docker ou localmente) nas portas `8081` e `8082`.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## 📦 Tecnologias Utilizadas
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- Angular 16
+- TypeScript
+- SCSS
+- Docker (para build de produção)
+- Comunicação com APIs REST de microsserviços
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## 📋 Funcionalidades
 
-To build the project run:
+- Listagem, criação, edição e exclusão de usuários
+- Listagem, filtragem e gerenciamento de tarefas
+- Modal customizado para formulários
+- Validações e feedback ao usuário
+- Comunicação com os microsserviços via HTTP
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 📌 Notas Finais
 
-## Running unit tests
+- O frontend foi projetado com arquitetura **smart/dumb components**
+- Ao utilizar o Docker Compose da pasta `infra`, nenhuma configuração adicional é necessária.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
