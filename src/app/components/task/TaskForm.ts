@@ -61,7 +61,6 @@ export class TaskForm implements OnInit, OnChanges {
     const data = this.taskForm.value;
 
     if (this.isEdit && this.task?.id) {
-      console.log('foi no edit')
       this.taskService.update(this.task.id, data).subscribe({
         next: () => {
           this.feedbackMessage = 'Tarefa atualizada com sucesso.';
@@ -75,7 +74,6 @@ export class TaskForm implements OnInit, OnChanges {
         }
       });
     } else {
-      console.log('foi no create')
       this.taskService.create(data).subscribe({
         next: () => {
           this.feedbackMessage = 'Tarefa criada com sucesso.';
